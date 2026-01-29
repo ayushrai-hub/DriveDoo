@@ -3,51 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Inventory Management System</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <tr>
+    <div class="container">
+        <header>
+            <h1>Inventory Management System</h1>
+            <p>Manage your products with ease</p>
+        </header>
 
-        <td>
-            <form autocomplete="off" onsubmit="onFormSubmit()"> 
-                <div>
-                    
-                    <label for="Product Code">Product Code</label>
-                    <input type="text"name="Product Code" id="Product Code"> 
+        <main>
+            <section class="form-section">
+                <h2>Add New Product</h2>
+                <form id="productForm" autocomplete="off">
+                    <div class="form-group">
+                        <label for="productCode">Product Code</label>
+                        <input type="text" name="productCode" id="productCode" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="productName">Product Name</label>
+                        <input type="text" name="productName" id="productName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="qty">Quantity</label>
+                        <input type="number" name="qty" id="qty" min="0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="price">Price</label>
+                        <input type="number" name="price" id="price" step="0.01" min="0" required>
+                    </div>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-primary">Add Product</button>
+                        <button type="reset" class="btn btn-secondary">Reset Form</button>
+                        <button type="button" class="btn btn-danger" id="clearAllBtn">Clear All Data</button>
+                    </div>
+                </form>
+            </section>
+
+            <section class="table-section">
+                <h2>Product List</h2>
+                <div class="table-controls">
+                    <input type="text" id="searchInput" placeholder="Search products...">
+                    <button class="btn btn-secondary" id="exportBtn">Export to JSON</button>
                 </div>
-                <div>
-                    
-                    <label for="Product">Product Name</label>
-                    <input type="text"name="Product" id="Product"> 
+                <div class="table-container">
+                    <table class="product-table" id="storelist">
+                        <thead>
+                            <tr>
+                                <th>Product Code</th>
+                                <th>Product Name</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                                <th>Total Value</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="productList">
+                            <!-- Products will be inserted here -->
+                        </tbody>
+                    </table>
                 </div>
-                <div>
-                    
-                    <label for="Qty">Qty</label>
-                    <input type="text"name="Qty" id="Qty"> 
+                <div class="summary">
+                    <div class="summary-item">
+                        <span>Total Products:</span>
+                        <span id="totalProducts">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Total Inventory Value:</span>
+                        <span id="totalValue">$0.00</span>
+                    </div>
                 </div>
-                <div>
-                    
-                    <label for="Per price">Price</label>
-                    <input type="text"name="Per Price" id="Per Price"> 
-                </div>
-                <div class="form_action--button">
-                    <input type="submit" value="submit">
-                    <input type="reset" value="reset">
-                </div>
-            </form>
-            <td>
-                <table class="list" id="storelist">
-                    <head>
-                        <tr>
-                            <th>Product Code</th>
-                            <th>Product Name</th>
-                            <th>Qty</th>
-                            <th>Price</th>
-                        </tr>
-                    </head>
-                </table>
-            </td>
-        </td>
-    </tr>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
 </body>
 </html>

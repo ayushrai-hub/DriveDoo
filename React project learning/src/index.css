@@ -1,0 +1,142 @@
+/* React Project Learning - Global Styles */
+
+:root {
+  /* Light theme colors */
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  --accent-color: #f093fb;
+  --text-color: #333;
+  --light-text: #fff;
+  --bg-color: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #e9ecef;
+  --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+  
+  /* Typography */
+  --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+}
+
+/* Dark theme colors */
+[data-theme="dark"] {
+  --primary-color: #4f46e5;
+  --secondary-color: #7c3aed;
+  --text-color: #e5e7eb;
+  --light-text: #111827;
+  --bg-color: #111827;
+  --card-bg: #1f2937;
+  --border-color: #374151;
+}
+
+/* Reset and base styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  color: var(--text-color);
+  background-color: var(--bg-color);
+  line-height: 1.6;
+  transition: var(--transition);
+}
+
+/* App container */
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.app.light {
+  --primary-color: #667eea;
+  --secondary-color: #764ba2;
+  --text-color: #333;
+  --light-text: #fff;
+  --bg-color: #f8f9fa;
+  --card-bg: #ffffff;
+  --border-color: #e9ecef;
+}
+
+.app.dark {
+  --primary-color: #4f46e5;
+  --secondary-color: #7c3aed;
+  --text-color: #e5e7eb;
+  --light-text: #111827;
+  --bg-color: #111827;
+  --card-bg: #1f2937;
+  --border-color: #374151;
+}
+
+/* Scroll progress indicator */
+.scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 4px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  z-index: 1000;
+  transition: width 0.1s;
+}
+
+/* Accessibility */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus indicators */
+button:focus, input:focus, a:focus {
+  outline: 3px solid rgba(102, 126, 234, 0.3);
+  outline-offset: 2px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --shadow: 0 0 0 1px var(--text-color);
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .app-nav, .demo-panel {
+    display: none;
+  }
+  
+  .section {
+    padding: 1rem;
+    break-inside: avoid;
+  }
+}

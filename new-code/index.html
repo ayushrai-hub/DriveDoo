@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>New Code Project</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <header class="app-header">
+            <div class="header-content">
+                <h1>🚀 New Code Project</h1>
+                <p class="tagline">A modern web application template</p>
+            </div>
+        </header>
+
+        <nav class="app-nav">
+            <ul>
+                <li><a href="#home" class="nav-link active">Home</a></li>
+                <li><a href="#features" class="nav-link">Features</a></li>
+                <li><a href="#demo" class="nav-link">Demo</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <section id="home" class="section hero">
+                <div class="hero-content">
+                    <h2>Welcome to the Future</h2>
+                    <p>This is a modern web application template built with vanilla technologies. Perfect for learning, prototyping, or as a starting point for your next project.</p>
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="startDemo()">Get Started</button>
+                        <button class="btn btn-secondary" onclick="showFeatures()">Learn More</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="features" class="section features">
+                <h2>✨ Key Features</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🎨</div>
+                        <h3>Modern Design</h3>
+                        <p>Clean, responsive interface that works on all devices</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3>Fast & Lightweight</h3>
+                        <p>No frameworks, just pure HTML, CSS, and JavaScript</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔧</div>
+                        <h3>Easy to Customize</h3>
+                        <p>Simple structure makes modifications straightforward</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">📱</div>
+                        <h3>Mobile First</h3>
+                        <p>Designed for optimal mobile experience</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="demo" class="section demo">
+                <h2>🎮 Interactive Demo</h2>
+                <div class="demo-content">
+                    <div class="demo-panel">
+                        <h3>Color Picker</h3>
+                        <div class="color-controls">
+                            <input type="color" id="colorPicker" value="#667eea">
+                            <button class="btn" onclick="applyColor()">Apply Color</button>
+                            <button class="btn" onclick="resetColor()">Reset</button>
+                        </div>
+                        <div class="color-preview" id="colorPreview">
+                            Selected Color Preview
+                        </div>
+                    </div>
+
+                    <div class="demo-panel">
+                        <h3>Text Generator</h3>
+                        <div class="text-controls">
+                            <input type="text" id="textInput" placeholder="Enter some text...">
+                            <button class="btn" onclick="generateText()">Generate</button>
+                            <button class="btn" onclick="clearText()">Clear</button>
+                        </div>
+                        <div class="text-output" id="textOutput">
+                            Your generated text will appear here...
+                        </div>
+                    </div>
+
+                    <div class="demo-panel">
+                        <h3>Progress Tracker</h3>
+                        <div class="progress-controls">
+                            <button class="btn" onclick="incrementProgress()">+10%</button>
+                            <button class="btn" onclick="decrementProgress()">-10%</button>
+                            <button class="btn" onclick="resetProgress()">Reset</button>
+                        </div>
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text" id="progressText">0%</div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="about" class="section about">
+                <h2>ℹ️ About This Project</h2>
+                <div class="about-content">
+                    <p>This project demonstrates modern web development practices using vanilla technologies. It's designed to be:</p>
+                    <ul>
+                        <li><strong>Accessible:</strong> Follows accessibility best practices</li>
+                        <li><strong>Responsive:</strong> Works on all screen sizes</li>
+                        <li><strong>Performant:</strong> Fast loading and smooth interactions</li>
+                        <li><strong>Modular:</strong> Easy to extend and modify</li>
+                    </ul>
+                    <p>Perfect for learning web development or as a foundation for your own projects.</p>
+                </div>
+            </section>
+        </main>
+
+        <footer class="app-footer">
+            <p>&copy; 2026 New Code Project. Built with ❤️ using HTML, CSS, and JavaScript.</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
