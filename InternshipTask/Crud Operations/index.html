@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <tr>
+
+        <td>
+            <form autocomplete="off" onsubmit="onFormSubmit()"> 
+                <div>
+                    
+                    <label for="Product Code">Product Code</label>
+                    <input type="text"name="Product Code" id="Product Code"> 
+                </div>
+                <div>
+                    
+                    <label for="Product">Product Name</label>
+                    <input type="text"name="Product" id="Product"> 
+                </div>
+                <div>
+                    
+                    <label for="Qty">Qty</label>
+                    <input type="text"name="Qty" id="Qty"> 
+                </div>
+                <div>
+                    
+                    <label for="Per price">Price</label>
+                    <input type="text"name="Per Price" id="Per Price"> 
+                </div>
+                <div class="form_action--button">
+                    <input type="submit" value="submit">
+                    <input type="reset" value="reset">
+                </div>
+            </form>
+            <td>
+                <table class="list" id="storelist">
+                    <head>
+                        <tr>
+                            <th>Product Code</th>
+                            <th>Product Name</th>
+                            <th>Qty</th>
+                            <th>Price</th>
+                        </tr>
+                    </head>
+                </table>
+            </td>
+        </td>
+    </tr>
+</body>
+</html>

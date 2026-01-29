@@ -1,0 +1,158 @@
+from dataclasses import dataclass, field
+from typing import Dict, List, Optional
+from enum import Enum
+import logging
+from decimal import Decimal, ROUND_HALF_UP
+
+logging.basicConfig(filename='grades.log', level=logging.INFO, 
+                   format='%(asctime)s - %(levelname)s - %(message)s')
+
+class GradeError(Exception): pass
+class StudentError(Exception): pass
+
+class Grade(Enum):
+    A = 90
+    B = 80
+    C = 70
+    D = 60
+    F = 0
+
+    @classmethod
+    def from_score(cls, score: float) -> str:
+        for grade in reversed(cls):
+            if score >= grade.value:
+                return grade.name
+        return cls.F.name
+
+@dataclass
+class Subject:
+    name: str
+    grades: List[float] = field(default_factory=list)
+
+    def add_grade(self, grade: float) -> None:
+        try:
+            grade = float(grade)
+            if not 0 <= grade <= 100:
+                raise GradeError(f"Grade must be between 0-100, got {grade}")
+            self.grades.append(grade)
+        except ValueError:
+            raise GradeError(f"Invalid grade format: {grade}")
+
+    def get_average(self) -> Optional[float]:
+        if not self.grades:
+            return None
+        avg = sum(self.grades) / len(self.grades)
+        return float(Decimal(str(avg)).quantize(Decimal('0.01'), ROUND_HALF_UP))
+
+    def get_letter_grade(self) -> Optional[str]:
+        avg = self.get_average()
+        return Grade.from_score(avg) if avg is not None else None
+
+@dataclass
+class Student:
+    id: int
+    name: str
+    subjects: Dict[str, Subject] = field(default_factory=dict)
+
+    def validate_subject(self, subject_name: str) -> None:
+        subject_name = subject_name.strip()
+        if not subject_name:
+            raise ValueError("Subject name cannot be empty")
+        return subject_name
+
+    def add_grade(self, subject_name: str, grade: float) -> None:
+        subject_name = self.validate_subject(subject_name)
+        if subject_name not in self.subjects:
+            self.subjects[subject_name] = Subject(subject_name)
+        self.subjects[subject_name].add_grade(grade)
+
+class GradeManager:
+    def _init_(self):
+        self.students: Dict[int, Student] = {}
+        self.logger = logging.getLogger(__name__)
+
+    def validate_student_id(self, student_id: int) -> None:
+        try:
+            student_id = int(student_id)
+            if student_id < 1:
+                raise StudentError("Student ID must be positive")
+            return student_id
+        except ValueError:
+            raise StudentError("Student ID must be an integer")
+
+    def add_student(self, student_id: int, name: str) -> None:
+        student_id = self.validate_student_id(student_id)
+        name = name.strip()
+        if not name:
+            raise StudentError("Student name cannot be empty")
+        if student_id in self.students:
+            raise StudentError(f"Student ID {student_id} already exists")
+        
+        self.students[student_id] = Student(student_id, name)
+        self.logger.info(f"Added student: {name} (ID: {student_id})")
+
+    def add_grade(self, student_id: int, subject: str, grade: float) -> None:
+        try:
+            student = self.students.get(student_id)
+            if not student:
+                raise StudentError(f"Student {student_id} not found")
+            student.add_grade(subject, grade)
+            self.logger.info(f"Added grade {grade} for student {student_id} in {subject}")
+        except (StudentError, GradeError) as e:
+            self.logger.error(str(e))
+            raise
+
+    def generate_report(self, student_id: int) -> str:
+        student = self.students.get(student_id)
+        if not student:
+            raise StudentError(f"Student {student_id} not found")
+
+        report = [
+            f"Report Card for {student.name} (ID: {student_id})",
+            "=" * 50
+        ]
+
+        if not student.subjects:
+            report.append("No subjects registered")
+            return "\n".join(report)
+
+        for subject_name, subject in sorted(student.subjects.items()):
+            avg = subject.get_average()
+            grade = subject.get_letter_grade()
+            
+            report.extend([
+                f"\nSubject: {subject_name}",
+                f"Grades: {', '.join(map(str, subject.grades)) if subject.grades else 'None'}",
+                f"Average: {avg:.2f if avg else 'N/A'} (Grade: {grade if grade else 'N/A'})"
+            ])
+
+        return "\n".join(report)
+
+def demo_grade_manager():
+    manager = GradeManager()
+    try:
+        # Add students
+        manager.add_student(101, "John Doe")
+        manager.add_student(102, "Jane Smith")
+
+        # Add grades for John
+        grades_data = [
+            (101, "Math", 95), (101, "Math", 88), (101, "Math", 92),
+            (101, "Physics", 85), (101, "Physics", 90),
+            (102, "Math", 78), (102, "Math", 85),
+            (102, "Chemistry", 88), (102, "Chemistry", 92)
+        ]
+
+        for student_id, subject, grade in grades_data:
+            manager.add_grade(student_id, subject, grade)
+
+        # Generate reports
+        for student_id in [101, 102]:
+            print(manager.generate_report(student_id))
+            print("\n" + "=" * 50 + "\n")
+
+    except (StudentError, GradeError) as e:
+        print(f"Error: {e}")
+
+if __name__ == "_main_":
+    demo_grade_manager()
